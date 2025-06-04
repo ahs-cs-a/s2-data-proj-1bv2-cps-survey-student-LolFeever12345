@@ -37,12 +37,13 @@ public class ReadData{
     //this should return a double array of the column
     //of data
     public double[][] getColumns(int col1, int col2){
-        double[][] columns = data; 
+        double[][] columns = new double[2][data.length];
         for (int i = 0; i < data.length; i++) {
-            columns[i][0] = data[i][col1]; 
-            columns[i][1] = data[i][col2]; 
+            columns[0][i] = data[i][col1]; 
+            columns[1][i] = data[i][col2]; 
         }
         return columns;
+
     }
 
     //this returns the standard deviation of the x and y column
@@ -77,36 +78,34 @@ public class ReadData{
     //the mean is the sum of the values divided by the number 
     //of values
     public double[] mean(double[][] xy){
-    double[] means = new double[xy[0].length];
+        double[] means = new double[2];
     
-    for (int col = 0; col < xy[0].length; col++) {
-        double sum = 0;
-        
-        for (int row = 0; row < xy.length; row++) {
-            sum += xy[row][col];
+        for(int i =0;i<xy[0].length;i++){
+           means[0]+=xy[0][i]; 
+           means[1]+=xy[1][i];
         }
         
-        means[col] = sum / xy.length;
-    }
+        means[0] /=xy[0].length;
+        means[1]/=xy[1].length;
     
-    return means;
+        return means;
     }
 
     //this returns the values of each column in standard units
     //the standard units are the value minus the mean divided by the standard deviation
     //this should return a double 2D array of the standard units
     public double[][] standardUnits(double[][] xy){
-    double[][] stdArr = new double[xy.length][xy[0].length];
+        double[][] stdArr = new double[xy.length][xy[0].length];
 
-    double[] mean = mean(xy);  
-    double[] stdDev = stdDeviation(xy);  
+        double[] mean = mean(xy);  
+        double[] stdDev = stdDeviation(xy);  
     
-    for (int i = 0; i < xy.length; i++) {
-        for (int j = 0; j < xy[0].length; j++) {
-            stdArr[i][j] = (xy[i][j] - mean[j]) / stdDev[j];
+        for (int i = 0; i < xy.length; i++) {
+            for (int j = 0; j < xy[0].length; j++) {
+                stdArr[i][j] = (xy[i][j] - mean[j]) / stdDev[j];
+            }
         }
-    }
-    
+
     return stdArr;
     }
     
