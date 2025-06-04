@@ -95,15 +95,14 @@ public class ReadData{
     //the standard units are the value minus the mean divided by the standard deviation
     //this should return a double 2D array of the standard units
     public double[][] standardUnits(double[][] xy){
-        double[][] stdArr = new double[xy.length][xy[0].length];
+        double[][] stdArr = new double[2][xy[0].length];
 
         double[] mean = mean(xy);  
         double[] stdDev = stdDeviation(xy);  
     
         for (int i = 0; i < xy.length; i++) {
-            for (int j = 0; j < xy[0].length; j++) {
-                stdArr[i][j] = (xy[i][j] - mean[j]) / stdDev[j];
-            }
+            stdArr[0][i]=(xy[0][i]-mean[0])/stdDev[0];
+            stdArr[1][i]=(xy[1][i]-mean[1])/stdDev[1];
         }
 
     return stdArr;
